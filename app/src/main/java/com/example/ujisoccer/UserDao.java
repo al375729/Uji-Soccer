@@ -11,10 +11,10 @@ import java.util.List;
 public interface UserDao {
 
     @Insert
-    void insertTeams(Team... teams);
+    void insertTeam(Team... teams);
 
     @Insert
-    void insertLeagues(League... leagues);
+    void insertLeague(League... leagues);
 
     @Query("SELECT * FROM League ORDER BY name")
     List<League> getAllLeagues();
