@@ -4,9 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.ujisoccer.Database.Team;
+
 import java.util.List;
 
-
+/*
 @Dao
 public interface UserDao {
 
@@ -21,4 +23,4 @@ public interface UserDao {
 
     @Query("SELECT * FROM Team")
     List<Team> getAllLeague();
-}
+}*/

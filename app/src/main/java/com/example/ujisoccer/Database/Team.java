@@ -1,4 +1,4 @@
-package com.example.ujisoccer;
+package com.example.ujisoccer.Database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,9 +13,9 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys =
 @ForeignKey(entity = League.class,
         parentColumns = "id",
-        childColumns = "league_id")
+        childColumns = "league_id" ), tableName = "Team")
 
-)
+
 public class Team implements Parcelable {
     @PrimaryKey
     public int id;
@@ -26,9 +26,10 @@ public class Team implements Parcelable {
     @ColumnInfo(name = "shortname")
     public String shortname;
 
+    /*
     @ColumnInfo(name = "stadium")
     public String stadium;
-
+*/
     @ColumnInfo(name = "colours")
     public String colours;
 
@@ -36,16 +37,24 @@ public class Team implements Parcelable {
     public String web;
 
     @ColumnInfo(name = "league_id")
-    public String league_id;
+    public int league_id;
 
-    public Team(int id, String name, String shortname, String stadium, String colours, String web,String league_id) {
+    @ColumnInfo(name = "founded")
+    public String founded;
+
+    @ColumnInfo(name = "venue")
+    public String venue;
+
+    public Team(int id, String name, String shortname, String colours, String web,int league_id,String founded,String venue) {
         this.id = id;
         this.name = name;
         this.shortname = shortname;
-        this.stadium = stadium;
+       // this.stadium = stadium;
         this.colours = colours;
         this.web = web;
         this.league_id = league_id;
+        this.founded = founded;
+        this.venue = venue;
     }
 
 
@@ -53,10 +62,12 @@ public class Team implements Parcelable {
         id = in.readInt();
         name = in.readString();
         shortname = in.readString();
-        stadium = in.readString();
+       // stadium = in.readString();
         colours = in.readString();
         web = in.readString();
-        league_id = in.readString();
+        league_id = in.readInt();
+        founded = in.readString();
+        venue = in.readString();
     }
 
     @Override
@@ -69,10 +80,12 @@ public class Team implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(shortname);
-        dest.writeString(stadium);
+       // dest.writeString(stadium);
         dest.writeString(colours);
         dest.writeString(web);
-        dest.writeString(league_id);
+        dest.writeInt(league_id);
+        dest.writeString(founded);
+        dest.writeString(venue);
     }
 
     @SuppressWarnings("unused")
