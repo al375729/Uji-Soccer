@@ -22,7 +22,11 @@ public class Presenter {
          Response.Listener listenerPresenter = new Response.Listener<List<League>>() {
             @Override
             public void onResponse(List<League> response) {
-               if(!response.isEmpty()) listener.onResponse(response);
+               if(response.isEmpty()==false){
+                   modelo.insertarLigas(response);
+                   listener.onResponse(response);
+
+               }
                else  modelo.ligasAPI(listener);
             }
         };

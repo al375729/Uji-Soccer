@@ -117,4 +117,7 @@ public class Model {
 
    }
 
+   public void insertarLigas(List<League> ligas ){
+  dao.insertarLigas(ligas);
+   }
  }
