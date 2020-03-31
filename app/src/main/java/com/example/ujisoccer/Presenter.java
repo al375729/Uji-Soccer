@@ -4,18 +4,29 @@ import android.content.Context;
 
 import com.android.volley.Response;
 import com.example.ujisoccer.Database.League;
+import com.example.ujisoccer.Database.Team;
 
 import java.util.List;
 
 public class Presenter {
 
-    private MainActivity vistaInicial;
+    private Inter view;
     private static Model modelo;
 
-    public Presenter(MainActivity vistaInicial, Context context) {
-        this.vistaInicial = vistaInicial;
-        this.modelo = Model.getInstance(context);
+    public Presenter(final Inter view, Model model) {
+        this.view = view;
+
+        model.ligasAPI(new Response.Listener<List<League>>() {
+            @Override
+            public void onResponse(List<League> response) {
+                view.mostrarInfoLiga(response);
+            }
+        });
     }
+
+
+
+
 
     public static void obtenerDatosLiga(final Response.Listener listener) {
 
