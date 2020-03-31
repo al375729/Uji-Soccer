@@ -13,10 +13,16 @@ import java.util.List;
 public abstract class LeaguesDao {
 
     @Insert
-    public abstract void putLeagues(List<League> leagues);
+    public abstract void insertarLigas(List<League> leagues);
 
     @Query("SELECT * FROM leagues ORDER BY name")
-    public abstract List<League> getlEAGUES();
+    public abstract List<League> infoLigas();
+
+    @Insert
+    public abstract void insertarEquipos(List<Team> teams);
+
+    @Query("SELECT * FROM Team WHERE league_id == :id ")
+    public abstract List<Team> infoEquipos(Integer id);
 
 
 
