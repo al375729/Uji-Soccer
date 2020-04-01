@@ -114,9 +114,11 @@ public class FootballDataAccess {
                 if (leagues.contains(id)){
 
                     String nombre = competicion.getString(nombreCompeticion);
-                    String pais = competicion.getString(nombreArea);
-                    String inicio = competicion.getString(inicioTemporada);
-                    String fin = competicion.getString(finTemporada);
+                    JSONObject area = competicion.getJSONObject(areaDeCompeticion);
+                    String pais = area.getString(nombreArea);
+                    JSONObject season = competicion.getJSONObject("currentSeason");
+                    String inicio = season.getString(inicioTemporada);
+                    String fin = season.getString(finTemporada);
                     lista.add(new League(id,nombre,pais,inicio,fin));
                     Log.d("myTag", "Insertado");
                 }

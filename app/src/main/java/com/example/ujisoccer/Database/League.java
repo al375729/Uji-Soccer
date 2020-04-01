@@ -1,6 +1,7 @@
 package com.example.ujisoccer.Database;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -50,5 +51,11 @@ public class League   {
 
     public String getEnd() {
         return end;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

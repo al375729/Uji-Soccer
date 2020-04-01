@@ -1,6 +1,7 @@
 package com.example.ujisoccer;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Response;
 import com.example.ujisoccer.Database.League;
@@ -13,18 +14,41 @@ public class Presenter {
     private Inter view;
     private static Model modelo;
 
-    public Presenter(final Inter view, Model model) {
+
+    public Presenter(final Inter view, final Model model) {
         this.view = view;
 
-        model.ligasAPI(new Response.Listener<List<League>>() {
+        model.ligasBaseDeDatos(new Response.Listener<List<League>>() {
             @Override
             public void onResponse(List<League> response) {
-                view.mostrarInfoLiga(response);
+                if(response.isEmpty()==false) {
+                    leaguesAviable(response);
+                    Log.d("myTag", "ha llamado la base de datos");
+                }
+                   else getLeaguesFromAPI(model);
             }
         });
     }
 
+    private void getLeaguesFromAPI(final Model model) {
+        model.ligasAPI(new Response.Listener<List<League>>() {
+            @Override
+            public void onResponse(List<League> response) {
+                if(response.isEmpty()==false) {
+                    model.insertarLigas(response);
+                    leaguesAviable(response);
+                    Log.d("myTag", "ha llamado la API");
 
+                }
+                    //Error
+            }
+        });
+    }
+
+    private void leaguesAviable(List<League> response) {
+        Log.d("myTag", "funciona");
+        view.mostrarInfoLiga(response);
+    }
 
 
 
@@ -45,5 +69,9 @@ public class Presenter {
 
 
         }
+
+        public void infoLeagues(int id){}
+
+
 }
 

@@ -2,6 +2,7 @@ package com.example.ujisoccer;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.room.Room;
 
@@ -117,7 +118,26 @@ public class Model {
 
    }
 
-   public void insertarLigas(List<League> ligas ){
-  dao.insertarLigas(ligas);
-   }
+
+
+ public void insertarLigas(List<League> ligas) {
+  new insertarLigasEnLaBaseDeDatos(ligas).execute();
+ }
+ private static class insertarLigasEnLaBaseDeDatos extends AsyncTask<List<League>, Void, Void> {
+ private List<League> ligas;
+
+
+  private insertarLigasEnLaBaseDeDatos(List<League> ligas) {
+  this.ligas=ligas;
+  }
+
+
+  @Override
+  protected Void doInBackground(List<League>... lists) {
+   dao.insertarLigas(ligas);
+   return null;
+  }
+
+ }
+
  }
