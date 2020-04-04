@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ujisoccer.Database.League;
+import com.example.ujisoccer.Standing.StandingsActivity;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Inter {
             @Override
             public void onClick(View v) {
 
-                Intent intent= new Intent(MainActivity.this,StandingsActivity.class);
+                Intent intent= new Intent(MainActivity.this, StandingsActivity.class);
                 intent.putExtra("id",id);
                 startActivity(intent);
             }
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements Inter {
     public void startStandings() {
 
     }
+
     public void ligaSeleccionada(League liga){
 
         infoPais.setText(liga.country);

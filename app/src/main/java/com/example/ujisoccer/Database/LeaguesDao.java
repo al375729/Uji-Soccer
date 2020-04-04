@@ -21,7 +21,7 @@ public abstract class LeaguesDao {
     @Insert
     public abstract void insertarEquipos(List<Team> teams);
 
-    @Query("SELECT * FROM Team WHERE league_id == :id ")
+    @Query("SELECT * FROM Team WHERE league_id == (:id) ")
     public abstract List<Team> infoEquipos(Integer id);
 
 

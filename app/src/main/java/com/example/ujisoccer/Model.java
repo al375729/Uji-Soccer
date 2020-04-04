@@ -12,6 +12,7 @@ import com.example.ujisoccer.Database.League;
 import com.example.ujisoccer.Database.LeagueDatabase;
 import com.example.ujisoccer.Database.LeaguesDao;
 import com.example.ujisoccer.Database.Team;
+import com.example.ujisoccer.Database.TeamInStanding;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -83,17 +84,19 @@ public class Model {
  }
 
 
- private static class extraerEquiposDeLaBaseDeDatos extends AsyncTask<Integer, Void, List<Team>> {//Dentro de una clase puede haber otra privada
+ private static class extraerEquiposDeLaBaseDeDatos extends AsyncTask<Void, Void, List<Team>> {
+  private final int id;//Dentro de una clase puede haber otra privada
 
   private Response.Listener<List<Team>> listener;
 
   private extraerEquiposDeLaBaseDeDatos(Response.Listener<List<Team>> listener, int id) {
    this.listener = listener;
+   this.id =id;
   }
 
   @Override
-  protected List<Team> doInBackground(Integer... id) {
-   return dao.infoEquipos(id[0]);
+  protected List<Team> doInBackground(Void... voids) {
+   return dao.infoEquipos(id);
   }
 
   @Override
@@ -103,7 +106,7 @@ public class Model {
 
  }
 
- public void ligasAPI(Response.Listener<List<League>> listener){
+ public void ligasAPI(Response.Listener<List<League>> listener) {
 
 
   Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -114,21 +117,37 @@ public class Model {
   };
 
 
-   dataAccess.getLeagues(leaguesToFollow,listener,errorListener);
+  dataAccess.getLeagues(leaguesToFollow, listener, errorListener);
+
+ }
+
+
+ public void ClasifiaciónAPI(int ligaId, Response.Listener<List<TeamInStanding>> listener) {
+
+
+  Response.ErrorListener errorListener = new Response.ErrorListener() {
+   @Override
+   public void onErrorResponse(VolleyError error) {
 
    }
+  };
 
+
+  dataAccess.getStandings(ligaId, listener, errorListener);
+
+ }
 
 
  public void insertarLigas(List<League> ligas) {
   new insertarLigasEnLaBaseDeDatos(ligas).execute();
  }
+
  private static class insertarLigasEnLaBaseDeDatos extends AsyncTask<List<League>, Void, Void> {
- private List<League> ligas;
+  private List<League> ligas;
 
 
   private insertarLigasEnLaBaseDeDatos(List<League> ligas) {
-  this.ligas=ligas;
+   this.ligas = ligas;
   }
 
 
@@ -140,4 +159,41 @@ public class Model {
 
  }
 
+ public void equiposApi(int ligaId, Response.Listener<List<Team>> listener) {
+
+
+  Response.ErrorListener errorListener = new Response.ErrorListener() {
+   @Override
+   public void onErrorResponse(VolleyError error) {
+
+   }
+  };
+  dataAccess.getTeams(ligaId, listener, errorListener);
+
  }
+
+
+
+    public void insertarEquipos(List<Team> equipos) {
+
+        new insertarEquiposEnLaBaseDeDatos(equipos).execute();
+
+    }
+
+    private static class insertarEquiposEnLaBaseDeDatos extends AsyncTask<List<Team>, Void, Void> {
+        private List<Team> equipos;
+
+
+        private insertarEquiposEnLaBaseDeDatos(List<Team> equipos) {
+            this.equipos = equipos;
+        }
+
+
+        @Override
+        protected Void doInBackground(List<Team>... lists) {
+            dao.insertarEquipos(equipos);
+            return null;
+        }
+
+    }
+}

@@ -8,4 +8,6 @@ public interface Inter {
     void mostrarInfoLiga(List<League> leagues);
 
     void startStandings();
+
+
 }
