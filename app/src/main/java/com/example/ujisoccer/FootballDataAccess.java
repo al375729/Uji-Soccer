@@ -216,18 +216,18 @@ public class FootballDataAccess {
 
 
     public void getScorers(final int idTeam,final int idLeague, final Response.Listener<List<Player>> listener, final Response.ErrorListener errorListener ){//
-        String url= urlBase + "competitions/"+idLeague+"/teams";
+        String url= urlBase + "competitions/"+idLeague+"/scorers?limit=50" ;
         sendRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                List<Player> equipo = parseScorers(response , idLeague,idTeam);
+                List<Player> equipo = parseScorers(response ,idTeam);
                 listener.onResponse(equipo);
             }
         }, errorListener);
 
     }
 
-    private List<Player> parseScorers(JSONObject response,int ligaId,int idTeam) {
+    private List<Player> parseScorers(JSONObject response,int idTeam) {
         List<Player> lista = new ArrayList<>();
 
         try{

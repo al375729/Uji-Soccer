@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
+import com.example.ujisoccer.ExtraActivity.ExtraActivity;
+import com.example.ujisoccer.MainActivity.MainActivity;
 import com.example.ujisoccer.Model;
 import com.example.ujisoccer.R;
 
@@ -24,7 +26,6 @@ import java.util.List;
 public class StandingsActivity extends AppCompatActivity implements InterfaceStanding {
     private int idLiga;
     private List<Team> equipos;
-
     public void setEquipos(List<Team> equipos) {
         this.equipos = equipos;
     }
@@ -78,6 +79,7 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
                 Log.d("myTag", equipo.name);
             }
         }
+
         final Team finalEquipo = equipo;
         TextView name = dialog.findViewById(R.id.name);
         name.setText(equipo.name);
@@ -103,10 +105,11 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         });
 
         TextView ejercicio =dialog.findViewById(R.id.ejer);
+
         ejercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llamarEjercicio();
+                llamarEjercicio(finalEquipo.id);
             }
         });
 
@@ -120,7 +123,11 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         });
     }
 
-    private void llamarEjercicio() {
+    private void llamarEjercicio(int equipoId) {
+        Intent intent= new Intent(StandingsActivity.this, ExtraActivity.class);
+        intent.putExtra("equipoId",equipoId);
+        intent.putExtra("ligaId",idLiga);
+        startActivity(intent);
     }
 
     private void llamarWeb(String web) {

@@ -13,6 +13,7 @@ import com.example.ujisoccer.Database.LeagueDatabase;
 import com.example.ujisoccer.Database.LeaguesDao;
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
+import com.example.ujisoccer.Standing.Player;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -196,4 +197,18 @@ public class Model {
         }
 
     }
+
+
+ public void goleadoresApi(int ligaId,int equipoId, Response.Listener<List<Player>> listener) {
+
+
+  Response.ErrorListener errorListener = new Response.ErrorListener() {
+   @Override
+   public void onErrorResponse(VolleyError error) {
+
+   }
+  };
+  dataAccess.getScorers(equipoId,ligaId, listener, errorListener);
+
+ }
 }
