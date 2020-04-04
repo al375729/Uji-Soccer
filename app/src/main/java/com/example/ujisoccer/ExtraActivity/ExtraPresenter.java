@@ -1,9 +1,6 @@
 package com.example.ujisoccer.ExtraActivity;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -45,6 +42,7 @@ public class ExtraPresenter {
             public void onErrorResponse(VolleyError error) {
                 view.hideProgressBar();
                 view.showError("Cannot connect the Internet");
+                view.showAviso();
             }
         });
     }

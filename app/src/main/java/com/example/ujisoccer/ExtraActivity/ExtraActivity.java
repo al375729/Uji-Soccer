@@ -32,10 +32,6 @@ public class ExtraActivity extends AppCompatActivity{
         idLiga = intent.getIntExtra("ligaId", 0);
         Model model = Model.getInstance(this);
         final ExtraPresenter presenter = new ExtraPresenter(this,model);
-
-        Log.d("myTag","ID LIGA =" +String.valueOf(idLiga));
-        Log.d("myTag", "ID EQUIPO ="+String.valueOf(idEquipo));
-
     }
 
     public int getIdLiga() {
@@ -70,5 +66,10 @@ public class ExtraActivity extends AppCompatActivity{
     public void hideProgressBar() {
         ProgressBar progressBar = findViewById(R.id.progressBar3) ;
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void showAviso() {
+        TextView aviso = findViewById(R.id.aviso5);
+        aviso.setVisibility(View.VISIBLE);
     }
 }

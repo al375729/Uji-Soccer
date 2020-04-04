@@ -76,7 +76,6 @@ public class FootballDataAccess {
     }
 
     private void sendRequest(String url, Response.Listener<JSONObject> listener , Response.ErrorListener errorListener){//Funcion a la que llamaremos para construir y mandar las peticiones
-        Log.d("myTag", "sendrequest");
         JsonRequest request = new JsonObjectRequest(Request.Method.GET, url,null,listener,errorListener ){
             @Override
             public Map<String,String> getHeaders(){
@@ -90,7 +89,6 @@ public class FootballDataAccess {
     }
 
     public void getLeagues(final Set<Integer> leagues, final Response.Listener<List<League>> listener, final Response.ErrorListener errorListener ){//Funcion que le pasa los argumentos a SendRequest para obtener una lista de ligas de la API
-        Log.d("myTag", "He llegado a getleagues");
         sendRequest(urlCompeticiones, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -102,7 +100,6 @@ public class FootballDataAccess {
     }
 
     private List<League> parseLeagues(JSONObject response, Set<Integer> leagues) {//Funcion que se le pasa la respuesta de la API al pedirle las ligas y separa la informacion y crea un instancia de la clase Liga y las añade a la lista que devolverá la funcion
-        Log.d("myTag", "parseLeagues");
         List<League> lista = new ArrayList<>();
 
         try{
@@ -111,17 +108,15 @@ public class FootballDataAccess {
             for(int i = 0; i < competiciones.length();i++){
                 JSONObject competicion = competiciones.getJSONObject(i);
                 int id = competicion.getInt(idCompeticion);
-                Log.d("myTag", "comprobacion "+ id);
                 if (leagues.contains(id)){
 
                     String nombre = competicion.getString(nombreCompeticion);
                     JSONObject area = competicion.getJSONObject(areaDeCompeticion);
                     String pais = area.getString(nombreArea);
-                    JSONObject season = competicion.getJSONObject("currentSeason");
+                    JSONObject season = competicion.getJSONObject(temporada);
                     String inicio = season.getString(inicioTemporada);
                     String fin = season.getString(finTemporada);
                     lista.add(new League(id,nombre,pais,inicio,fin));
-                    Log.d("myTag", "Insertado");
                 }
             }
         } catch (JSONException e) {
@@ -178,7 +173,6 @@ public class FootballDataAccess {
     }
 
     private List<TeamInStanding> parseStandings(JSONObject response, int ligaId) {
-        Log.d("myTag", "PARSE");
         List<TeamInStanding> lista = new ArrayList<>();
         try{
             JSONArray tipos = response.getJSONArray(clasificacion);
@@ -186,7 +180,6 @@ public class FootballDataAccess {
                 JSONObject tipo=tipos.getJSONObject(0);
                 String tiposs=tipo.getString("type");
                 if(tiposs=="TOTAL");{
-                    Log.d("myTag", tiposs);
                     JSONArray tabla = tipo.getJSONArray("table");
                     for (int j = 0; j < tabla.length();j++) {
                         JSONObject clasificado=tabla.getJSONObject(j);
