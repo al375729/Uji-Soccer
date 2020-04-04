@@ -1,4 +1,4 @@
-package com.example.ujisoccer;
+package com.example.ujisoccer.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ujisoccer.Database.League;
+import com.example.ujisoccer.Model;
+import com.example.ujisoccer.R;
 import com.example.ujisoccer.Standing.StandingsActivity;
 
 import java.util.List;

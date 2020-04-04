@@ -3,10 +3,8 @@ package com.example.ujisoccer.Standing;
 import android.util.Log;
 
 import com.android.volley.Response;
-import com.example.ujisoccer.Database.League;
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
-import com.example.ujisoccer.Inter;
 import com.example.ujisoccer.Model;
 
 import java.util.List;

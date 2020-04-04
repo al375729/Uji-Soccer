@@ -1,11 +1,10 @@
-package com.example.ujisoccer;
+package com.example.ujisoccer.MainActivity;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Response;
 import com.example.ujisoccer.Database.League;
-import com.example.ujisoccer.Database.Team;
+import com.example.ujisoccer.Model;
 
 import java.util.List;
 

@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.ujisoccer.Database.League;
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
+import com.example.ujisoccer.Standing.Player;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -214,33 +215,43 @@ public class FootballDataAccess {
 
 
 
-    public void getScorers(final int id, final Response.Listener<List<Team>> listener, final Response.ErrorListener errorListener ){//
-        String url= urlBase + "competitions/"+id+"/teams";
+    public void getScorers(final int idTeam,final int idLeague, final Response.Listener<List<Player>> listener, final Response.ErrorListener errorListener ){//
+        String url= urlBase + "competitions/"+idLeague+"/teams";
         sendRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                List<Team> equipo = parseTeams(response , id);
+                List<Player> equipo = parseScorers(response , idLeague,idTeam);
                 listener.onResponse(equipo);
             }
         }, errorListener);
 
     }
 
-    private List<Team> parseTeams(JSONObject response,int ligaId) {
-        List<Team> lista = new ArrayList<>();
+    private List<Player> parseScorers(JSONObject response,int ligaId,int idTeam) {
+        List<Player> lista = new ArrayList<>();
 
         try{
-            JSONArray equipos = response.getJSONArray(listaEqupios);
-            for (int i = 0; i < equipos.length();i++){
-                JSONObject equipo = equipos.getJSONObject(i);
-                int id = equipo.getInt(idEquipo);
-                String name =equipo.getString(nombreEquipo);
-                String shortName =equipo.optString(nombreCortoEquipo,"missing");
-                String website =equipo.optString(web,"vacio");
-                String founded =equipo.optString(fundado,"vacio");
-                String clubColours =equipo.optString(colores,"vacio");
-                String venues =equipo.optString(venue,"vacio");
-                lista.add(new Team(id,name,shortName,clubColours,website,ligaId,founded,venues));
+            JSONArray clasi = response.getJSONArray("scorers");
+            for (int i = 0; i < clasi.length();i++){
+                JSONObject jugador=clasi.getJSONObject(i);
+                JSONObject equipo=jugador.getJSONObject("team");
+                int id = equipo.getInt("id");
+                if(id == idTeam){
+                    JSONObject player=jugador.getJSONObject("player");
+                    String name = player.getString("name");
+                    String position= player.getString("position");
+                    String birth= player.getString("dateOfBirth");
+                    String nationality= player.getString("countryOfBirth");
+                    int goals = jugador.getInt("numberOfGoals");
+
+
+
+                    lista.add(new Player(name,position,birth,nationality,goals));
+                }
+
+
+
+
             }
 
         } catch (JSONException e){

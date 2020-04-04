@@ -1,4 +1,4 @@
-package com.example.ujisoccer;
+package com.example.ujisoccer.MainActivity;
 
 import com.example.ujisoccer.Database.League;
 

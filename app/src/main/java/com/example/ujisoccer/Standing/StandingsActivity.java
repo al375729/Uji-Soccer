@@ -16,9 +16,7 @@ import android.widget.Toast;
 
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
-import com.example.ujisoccer.Inter;
 import com.example.ujisoccer.Model;
-import com.example.ujisoccer.Presenter;
 import com.example.ujisoccer.R;
 
 import java.util.List;
