@@ -14,4 +14,9 @@ public interface InterfaceStanding {
 
      void setEquipos(List<Team> equipos);
 
+    void showError(String s);
+
+    void hideProgressBar();
+
+    void aviso();
 }

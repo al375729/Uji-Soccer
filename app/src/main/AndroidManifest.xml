@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Standing.StandingsActivity"></activity>
-        <activity android:name=".MainActivity.MainActivity">
+        <activity android:name=".Standing.StandingsActivity"  android:label="@string/standing"></activity>
+        <activity android:name=".MainActivity.MainActivity" android:label="@string/app_name">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExtraActivity.ExtraActivity"></activity>
+        <activity android:name=".ExtraActivity.ExtraActivity" android:label="@string/scorers"></activity>
     </application>
 
 </manifest>

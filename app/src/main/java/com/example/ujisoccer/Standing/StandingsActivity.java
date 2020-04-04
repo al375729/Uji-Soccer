@@ -7,10 +7,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +26,13 @@ import java.util.List;
 public class StandingsActivity extends AppCompatActivity implements InterfaceStanding {
     private int idLiga;
     private List<Team> equipos;
+
+
     public void setEquipos(List<Team> equipos) {
         this.equipos = equipos;
     }
+
+
 
     //ListView list = findViewById(R.id.listView);
     @Override
@@ -37,10 +41,9 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         setContentView(R.layout.activity_standings);
         Intent intent = getIntent();
         idLiga = intent.getIntExtra("id", 0);
-        Log.d("myTag", String.valueOf(idLiga));
-
         Model model = Model.getInstance(this);
         final PresenterStanding presenter = new PresenterStanding(this,model);
+
     }
 
     public int getIdLiga() {
@@ -59,8 +62,7 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Log.d("myTag", lista.get(position-1).name);
-               openDialog(position-1,lista);
+                openDialog(position-1,lista);
 
             }
         });
@@ -76,7 +78,6 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         for(int i =0;i<equipos.size();i++){
             if(equipos.get(i).id == lista.get(id).id) {
                 equipo = equipos.get(i);
-                Log.d("myTag", equipo.name);
             }
         }
 
@@ -94,7 +95,7 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         stadium.setText(equipo.venue);
 
         TextView colours = dialog.findViewById(R.id.textView22);
-        colours.setText(equipo.venue);
+        colours.setText(equipo.colours);
 
         TextView exit = dialog.findViewById(R.id.okay);
         exit.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +143,22 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
             }
 
     }
+    @Override
+    public void showError(String s) {
+        Toast.makeText(this, s,  Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void hideProgressBar() {
+        ProgressBar progressBar = findViewById(R.id.progressBar) ;
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void aviso() {
+        TextView aviso = findViewById(R.id.aviso);
+        aviso.setVisibility(View.VISIBLE);
+    }
 
 }

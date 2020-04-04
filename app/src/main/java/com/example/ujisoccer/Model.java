@@ -107,15 +107,10 @@ public class Model {
 
  }
 
- public void ligasAPI(Response.Listener<List<League>> listener) {
+ public void ligasAPI(Response.Listener<List<League>> listener, Response.ErrorListener errorListener) {
 
 
-  Response.ErrorListener errorListener = new Response.ErrorListener() {
-   @Override
-   public void onErrorResponse(VolleyError error) {
 
-   }
-  };
 
 
   dataAccess.getLeagues(leaguesToFollow, listener, errorListener);
@@ -123,16 +118,7 @@ public class Model {
  }
 
 
- public void ClasifiaciónAPI(int ligaId, Response.Listener<List<TeamInStanding>> listener) {
-
-
-  Response.ErrorListener errorListener = new Response.ErrorListener() {
-   @Override
-   public void onErrorResponse(VolleyError error) {
-
-   }
-  };
-
+ public void ClasifiaciónAPI(int ligaId, Response.Listener<List<TeamInStanding>> listener, Response.ErrorListener errorListener) {
 
   dataAccess.getStandings(ligaId, listener, errorListener);
 
@@ -160,15 +146,8 @@ public class Model {
 
  }
 
- public void equiposApi(int ligaId, Response.Listener<List<Team>> listener) {
+ public void equiposApi(int ligaId, Response.Listener<List<Team>> listener, Response.ErrorListener errorListener) {
 
-
-  Response.ErrorListener errorListener = new Response.ErrorListener() {
-   @Override
-   public void onErrorResponse(VolleyError error) {
-
-   }
-  };
   dataAccess.getTeams(ligaId, listener, errorListener);
 
  }
@@ -199,15 +178,8 @@ public class Model {
     }
 
 
- public void goleadoresApi(int ligaId,int equipoId, Response.Listener<List<Player>> listener) {
+ public void goleadoresApi(int ligaId, int equipoId, Response.Listener<List<Player>> listener, Response.ErrorListener errorListener) {
 
-
-  Response.ErrorListener errorListener = new Response.ErrorListener() {
-   @Override
-   public void onErrorResponse(VolleyError error) {
-
-   }
-  };
   dataAccess.getScorers(equipoId,ligaId, listener, errorListener);
 
  }

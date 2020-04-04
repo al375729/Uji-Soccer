@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ujisoccer.Database.League;
 import com.example.ujisoccer.Model;
@@ -75,16 +77,40 @@ public class MainActivity extends AppCompatActivity implements Inter {
             //hideText();
             }
         });
-
-
-
-
-
     }
-
 
     @Override
     public void startStandings() {
+    }
+
+    @Override
+    public void showText() {
+        TextView pais =  findViewById(R.id.textView);
+        TextView inicio =  findViewById(R.id.textView2);
+        TextView fin =  findViewById(R.id.nada);
+        TextView paisInfo =  findViewById(R.id.pais);
+        TextView inicioInfo =  findViewById(R.id.inicio);
+        TextView finInfo =  findViewById(R.id.fin);
+        Button boton = findViewById(R.id.button);
+
+        pais.setVisibility(View.VISIBLE);
+        inicio.setVisibility(View.VISIBLE);
+        fin.setVisibility(View.VISIBLE);
+        paisInfo.setVisibility(View.VISIBLE);
+        inicioInfo.setVisibility(View.VISIBLE);
+        finInfo.setVisibility(View.VISIBLE);
+        boton.setEnabled(true);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showError(String s) {
+        Toast.makeText(this, s,  Toast.LENGTH_LONG).show();
 
     }
 

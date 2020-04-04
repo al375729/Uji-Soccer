@@ -9,5 +9,9 @@ public interface Inter {
 
     void startStandings();
 
+    void showText();
 
+    void hideProgressBar();
+
+    void showError(String cannot_connect_the_internet);
 }

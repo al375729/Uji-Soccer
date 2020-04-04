@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -59,5 +61,14 @@ public class ExtraActivity extends AppCompatActivity{
     public void aviso() {
         TextView aviso = findViewById(R.id.aviso);
         aviso.setVisibility(View.VISIBLE);
+    }
+
+    public void showError(String s) {
+        Toast.makeText(this, s,  Toast.LENGTH_LONG).show();
+    }
+
+    public void hideProgressBar() {
+        ProgressBar progressBar = findViewById(R.id.progressBar3) ;
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }

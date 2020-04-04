@@ -3,6 +3,7 @@ package com.example.ujisoccer.MainActivity;
 import android.util.Log;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.ujisoccer.Database.League;
 import com.example.ujisoccer.Model;
 
@@ -22,7 +23,6 @@ public class Presenter {
             public void onResponse(List<League> response) {
                 if(response.isEmpty()==false) {
                     leaguesAviable(response);
-                    Log.d("myTag", "ha llamado la base de datos");
                 }
                    else getLeaguesFromAPI(model);
             }
@@ -36,41 +36,24 @@ public class Presenter {
                 if(response.isEmpty()==false) {
                     model.insertarLigas(response);
                     leaguesAviable(response);
-                    Log.d("myTag", "ha llamado la API");
 
                 }
-                    //Error
+                //Error
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                view.hideProgressBar();
+                view.showError("Cannot connect the Internet");
             }
         });
     }
 
     private void leaguesAviable(List<League> response) {
-        Log.d("myTag", "funciona");
+
         view.mostrarInfoLiga(response);
+        view.hideProgressBar();
+        view.showText();
     }
-
-
-
-    public static void obtenerDatosLiga(final Response.Listener listener) {
-
-         Response.Listener listenerPresenter = new Response.Listener<List<League>>() {
-            @Override
-            public void onResponse(List<League> response) {
-               if(response.isEmpty()==false){
-                   modelo.insertarLigas(response);
-                   listener.onResponse(response);
-
-               }
-               else  modelo.ligasAPI(listener);
-            }
-        };
-        modelo.ligasBaseDeDatos(listenerPresenter);
-
-
-        }
-
-        public void infoLeagues(int id){}
-
-
 }
 

@@ -6,12 +6,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.ujisoccer.Database.Team;
-import com.example.ujisoccer.Database.TeamInStanding;
 import com.example.ujisoccer.Model;
-import com.example.ujisoccer.R;
-import com.example.ujisoccer.Standing.Adapter;
-import com.example.ujisoccer.Standing.InterfaceStanding;
+
 import com.example.ujisoccer.Standing.Player;
 
 import java.util.List;
@@ -31,15 +29,22 @@ public class ExtraPresenter {
 
         int ligaID =view.getIdLiga();
         int equipoID=view.getIdEquipo();
-        Log.d("myTag","ID LIGA1 =" +String.valueOf(ligaID));
-        Log.d("myTag", "ID EQUIPO1 ="+String.valueOf(equipoID));
         model.goleadoresApi(ligaID,equipoID, new Response.Listener<List<Player>>() {
 
             @Override
             public void onResponse(List<Player> response) {
                 List<Player> lista = response;
-                if(response.isEmpty()==false)view.llenarListView(response);
+                view.hideProgressBar();
+                if(response.isEmpty()==false){
+                    view.llenarListView(response);
+                }
                     else view.aviso();
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                view.hideProgressBar();
+                view.showError("Cannot connect the Internet");
             }
         });
     }

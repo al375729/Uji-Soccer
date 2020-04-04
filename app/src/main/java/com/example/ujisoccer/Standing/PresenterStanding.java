@@ -3,6 +3,7 @@ package com.example.ujisoccer.Standing;
 import android.util.Log;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.ujisoccer.Database.Team;
 import com.example.ujisoccer.Database.TeamInStanding;
 import com.example.ujisoccer.Model;
@@ -27,10 +28,18 @@ public class PresenterStanding {
 
             @Override
             public void onResponse(List<TeamInStanding> response) {
-                List<TeamInStanding> lista = response;
-                String name = response.get(0).name;
-                Log.d("myTag", name);
-                view.llenarListView(response);
+                view.hideProgressBar();
+                if(response.isEmpty()==false) {
+                    view.llenarListView(response);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                view.aviso();
+                view.hideProgressBar();
+                view.showError("Cannot connect the Internet");
             }
         });
 
@@ -41,10 +50,8 @@ public class PresenterStanding {
                 if(response.isEmpty()==false){
                     equipos=response;
                     view.setEquipos(response);
-                    Log.d("myTag", "EQUIPOSBD");
                 }
                 else {
-
                     equiposApi(model,ligaID);
                 }
             }
@@ -57,15 +64,18 @@ public class PresenterStanding {
         model.equiposApi(ligaId,new Response.Listener<List<Team>>() {
         @Override
         public void onResponse(List<Team> response) {
-            List<Team> equipos = response;
-            Log.d("myTag", "EQUIPOSAPI");
-            model.insertarEquipos(response);
-            view.setEquipos(response);
+            if(response.isEmpty()==false){
+                model.insertarEquipos(response);
+                view.setEquipos(response);
+            }
 
-
-            //Error
         }
-    });
+    },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                view.showError("Cannot connect the Internet");
+            }
+        });
 
 
 
