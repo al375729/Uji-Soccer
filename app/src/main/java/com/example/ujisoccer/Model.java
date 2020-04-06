@@ -34,7 +34,7 @@ public class Model {
  private static FootballDataAccess dataAccess;
  private final LeagueDatabase database;
 
- private Model(final Context context) {//Constructor privado porque queremos que el modelo siga el patron Singleton
+ private Model(final Context context) {
 
   database = Room.databaseBuilder(context, LeagueDatabase.class, "futbolInfo").build();
   dao = database.getLeaguesDao();
@@ -42,29 +42,20 @@ public class Model {
 
  }
 
- public static synchronized Model getInstance(Context context) {//Como el constructor es privado llamaremos a esta funcion que o nos devovlera la isntancia del Modelo o si no existe llamara al constructor privado para crear una instancia
+ public static synchronized Model getInstance(Context context) {
   if (instance == null) instance = new Model(context);
   return instance;
  }
 
- //Añadir las clases que extienden de AsyncTask para hacer las oepraciones con la base de datos(para las consultas a la API no tiene que ser ASYNC)
- //Los metodos los llama el presenter y distinguiremos dos casos tener la info en la BD y no
- //Llamamos al metodo que saque la info de la BD si la lista que devuelve esta vacia llamaremos a otro metodo que saque la info de la API ,cuando la info este en el mdoelo la meteremos en la baseDeDatos y luego delvolveremos la lista al presenter
- //Si la info esta en la base de datos se la devolvemos al Presenter
-
-
  public void ligasBaseDeDatos(Response.Listener<List<League>> listener) {
-  new extraerLigasDeLaBaseDeDatos(listener).execute();//Creamos un nuevo Thread y execute lo lanza
+  new extraerLigasDeLaBaseDeDatos(listener).execute();
  }
 
  public void equiposBaseDeDatos(Response.Listener<List<Team>> listener, int id) {
-  new extraerEquiposDeLaBaseDeDatos(listener, id).execute();//Creamos un nuevo Thread y execute lo lanza
+  new extraerEquiposDeLaBaseDeDatos(listener, id).execute();
  }
 
-//DUDA --> la informacion de la clasificacion se obtiene siempre de una llamada a la API por tanto no hay que crear una clase que extienda de async task solo llamar a  la funcion de la clase de las queris
-
-
- private static class extraerLigasDeLaBaseDeDatos extends AsyncTask<Void, Void, List<League>> {//Dentro de una clase puede haber otra privada
+ private static class extraerLigasDeLaBaseDeDatos extends AsyncTask<Void, Void, List<League>> {
 
   private Response.Listener<List<League>> listener;
 
@@ -86,7 +77,7 @@ public class Model {
 
 
  private static class extraerEquiposDeLaBaseDeDatos extends AsyncTask<Void, Void, List<Team>> {
-  private final int id;//Dentro de una clase puede haber otra privada
+  private final int id;
 
   private Response.Listener<List<Team>> listener;
 

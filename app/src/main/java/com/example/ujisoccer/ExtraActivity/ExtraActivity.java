@@ -2,21 +2,16 @@ package com.example.ujisoccer.ExtraActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.ujisoccer.MainActivity.MainActivity;
-import com.example.ujisoccer.MainActivity.Presenter;
 import com.example.ujisoccer.Model;
 import com.example.ujisoccer.R;
 import com.example.ujisoccer.Standing.Player;
-import com.example.ujisoccer.Standing.StandingsActivity;
+
 
 import java.util.List;
 
@@ -49,7 +44,7 @@ public class ExtraActivity extends AppCompatActivity{
 
 
         ListView list = findViewById(R.id.goleadores);
-        list.addHeaderView(footerView,"Header",false);//Add view to list view as footer view
+        list.addHeaderView(footerView,"Header",false);
         list.setAdapter(customAdapter);
 
     }

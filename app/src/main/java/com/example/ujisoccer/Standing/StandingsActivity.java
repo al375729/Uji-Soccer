@@ -32,9 +32,6 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
         this.equipos = equipos;
     }
 
-
-
-    //ListView list = findViewById(R.id.listView);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +54,7 @@ public class StandingsActivity extends AppCompatActivity implements InterfaceSta
 
 
         ListView list = findViewById(R.id.listView);
-        list.addHeaderView(footerView,"Header",false);//Add view to list view as footer view
+        list.addHeaderView(footerView,"Header",false);
         list.setAdapter(customAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
